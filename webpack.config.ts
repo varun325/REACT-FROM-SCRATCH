@@ -45,11 +45,6 @@ const config: webpack.Configuration = {
         hot: true,
         open: true,
     },
-    optimization: {
-        splitChunks: {
-            chunks: "all",
-        },
-    },
 };
 
 export default config;
