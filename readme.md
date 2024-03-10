@@ -226,3 +226,65 @@ _How to set up a basic react project using javascript/typescript, babel and webp
 19. ```bash
     npm start
     ```
+
+#### Optional? convert webpack.config.js to webpack.config.ts
+
+20. Modify webpack.config.js for typescript
+
+    -   ```typescript
+        import path from "path";
+        import webpack from "webpack";
+        import "webpack-dev-server";
+        import HtmlWebpackPlugin from "html-webpack-plugin";
+        const config: webpack.Configuration = {
+            mode: "development",
+            entry: "./src/index.tsx",
+            output: {
+                filename: "bundle.js",
+            },
+            module: {
+                rules: [
+                    {
+                        test: /\.(js|jsx)$/,
+                        exclude: /node_modules/,
+                        use: ["babel-loader"],
+                    },
+                    {
+                        test: /\.(ts|tsx)$/,
+                        exclude: /node_modules/,
+                        use: ["ts-loader"],
+                    },
+                    {
+                        test: /\.(css|scss)$/,
+                        use: ["style-loader", "css-loader"],
+                    },
+                    {
+                        test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
+                        use: ["file-loader"],
+                    },
+                ],
+            },
+            resolve: {
+                extensions: [".js", ".jsx", ".ts", ".tsx"],
+            },
+            plugins: [
+                new HtmlWebpackPlugin({
+                    template: "./public/index.html",
+                }),
+            ],
+            devServer: {
+                static: {
+                    directory: path.resolve(__dirname, "dist"),
+                },
+                hot: true,
+                open: true,
+            },
+        };
+
+        export default config;
+        ```
+
+-   Install @babel/register
+    -   ```bash
+          npm install --save-dev @babel/register
+        ```

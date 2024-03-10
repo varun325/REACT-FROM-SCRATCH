@@ -1,7 +1,8 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const path = require("path");
-
-module.exports = {
+import path from "path";
+import webpack from "webpack";
+import "webpack-dev-server";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+const config: webpack.Configuration = {
     mode: "development",
     entry: "./src/index.tsx",
     output: {
@@ -39,9 +40,11 @@ module.exports = {
     ],
     devServer: {
         static: {
-            directory: path.join(__dirname, "dist"),
+            directory: path.resolve(__dirname, "dist"),
         },
         hot: true,
         open: true,
     },
 };
+
+export default config;
